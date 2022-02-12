@@ -34,7 +34,7 @@ def main(visited):
     print("Neighbours: ", neighbors)
     for l in range(100):
         start_time=time.time()
-        # print("Depth---------------------------------------------------------------------",l)
+        print("Depth---------------------------------------------------------------------",l)
         
         val=DLS(start,goal,l,visited)
         if val is not False:
