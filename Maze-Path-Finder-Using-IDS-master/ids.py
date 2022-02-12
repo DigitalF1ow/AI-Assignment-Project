@@ -25,7 +25,8 @@ t.speed(0)
 path=[]
 
 #UNCOMMENT THIS LINE TO MAKE PROGRAM RUN FASTER
-#t._tracer(False)
+
+t._tracer(False)
 
 
 
@@ -148,7 +149,9 @@ def DLS(start_state,goal,depth,visited):
                 val=DLS(neighbor,goal,depth-1,visited)
                 
         if val is not False:
-            draw_filled_rect(start_state[0],start_state[1],"green")
+            draw_filled_rect( start_state[0],start_state[1],"green")
+            print("Value: " + val)
+            print("Value: "+ val + "," + str(start_state[0]) + ":" + str(start_state[1]))
             return val+","+str(start_state[0])+":"+str(start_state[1])
         return False
 
