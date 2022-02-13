@@ -147,6 +147,7 @@ def DLS(start_state,goal,depth,visited):
         for neighbor in neighbors[start_state]:
             if neighbor not in visited and val is False:
                 val=DLS(neighbor,goal,depth-1,visited)
+                print("Value : ", val)
                 
         if val is not False:
             draw_filled_rect( start_state[0],start_state[1],"green")
