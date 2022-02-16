@@ -275,6 +275,8 @@ class textLabel:
         self.lab = Label(self._parentMaze._canvas, textvariable=self._var, bg="white", fg="black",font=('Helvetica bold',12),relief=RIDGE)
         self._var.set(f'{self.title} : {self.value}')
         self.lab.pack(expand = True,side=LEFT,anchor=NW)
+    def __del__(self):
+        print("Maze Object is Deleted")
 
 class maze:
     '''
@@ -892,3 +894,11 @@ class maze:
         Finally to run the Tkinter Main Loop
         '''
         self._win.mainloop()
+    
+    def __del__(self):
+        try:
+            self._win.destroy()
+        except:
+            pass
+        
+        print("Maze Object is Deleted")
