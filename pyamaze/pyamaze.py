@@ -466,6 +466,7 @@ class maze:
                     print('Path to goal not found!')
                     return
             return fwdPath
+
         # if maze is to be generated randomly
         if not loadMaze:
             _stack.append((x,y))
@@ -600,6 +601,7 @@ class maze:
             self.path=BFS((self.rows,self.cols))
         self._drawMaze(self.theme)
         agent(self,*self._goal,shape='square',filled=True,color=COLOR.green)
+
         if saveMaze:
             dt_string = datetime.datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
             with open(f'maze--{dt_string}.csv','w',newline='') as f:
@@ -715,14 +717,17 @@ class maze:
                 self._canvas.delete(a._body[i])
             self._canvas.delete(a._head) 
         w=self._cell_width
+        
         if((a.x,a.y) in self.markCells and showMarked):
+            
             w=self._cell_width
             x=a.x*w-w+self._LabWidth
             y=a.y*w-w+self._LabWidth
             self._canvas.create_oval(y + w/2.5+w/20, x + w/2.5+w/20,y + w/2.5 +w/4-w/20, x + w/2.5 +w/4-w/20,fill='red',outline='red',tag='ov')
             self._canvas.tag_raise('ov')
-       
-        if (a.x,a.y)==(a.goal):
+        
+        if (a.x,a.y)==(a.goal) :
+            
             del maze._tracePathList[0][0][a]
             if maze._tracePathList[0][0]=={}:
                 del maze._tracePathList[0]
@@ -731,6 +736,7 @@ class maze:
             if kill:
                 self._win.after(300, killAgent,a)         
             return
+        
         # If path is provided as Dictionary
         if(type(p)==dict):
             if(len(p)==0):
@@ -770,8 +776,10 @@ class maze:
                         a.x,a.y=p[(a.x,a.y)]
                 else:
                     del p[(a.x,a.y)]
-            else:    
+            
+            else:
                 a.x,a.y=p[(a.x,a.y)]
+            
         # If path is provided as String
         if (type(p)==str):
             if(len(p)==0):
@@ -876,6 +884,8 @@ class maze:
             else:    
                 a.x,a.y=p[0]
                 del p[0]
+        
+        
 
         self._win.after(delay, self._tracePathSingle,a,p,kill,showMarked,delay)    
 
@@ -884,8 +894,9 @@ class maze:
         A method to trace path by agent
         You can provide more than one agent/path details
         '''
+
         self._tracePathList.append((d,kill,delay))
-        if maze._tracePathList[0][0]==d: 
+        if maze._tracePathList[0][0]== d: 
             for a,p in d.items():
                 if a.goal!=(a.x,a.y) and len(p)!=0:
                     self._tracePathSingle(a,p,kill,showMarked,delay)
