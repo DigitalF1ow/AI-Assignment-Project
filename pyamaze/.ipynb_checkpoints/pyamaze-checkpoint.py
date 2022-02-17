@@ -739,48 +739,58 @@ class maze:
         
         # If path is provided as Dictionary
         if(type(p)==dict):
-            if(len(p)==0):
-                #print("Entered")
-                del maze._tracePathList[0][0][a]
-                return
-            if a.shape=='arrow':
-                old=(a.x,a.y)
-                new=p[(a.x,a.y)]
-                o=a._orient
-                
-                if old!=new:
-                    if old[0]==new[0]:
-                        if old[1]>new[1]:
-                            mov=3#'W' #3
+            try:
+                if(len(p)==0):
+                    #print("Entered")
+                    del maze._tracePathList[0][0][a]
+                    return
+                if a.shape=='arrow':
+                    old=(a.x,a.y)
+                    new=p[(a.x,a.y)]
+                    o=a._orient
+
+                    if old!=new:
+                        if old[0]==new[0]:
+                            if old[1]>new[1]:
+                                mov=3#'W' #3
+                            else:
+                                mov=1#'E' #1
                         else:
-                            mov=1#'E' #1
+                            if old[0]>new[0]:
+                                mov=0#'N' #0
+
+                            else:
+                                mov=2#'S' #2
+                        if mov-o==2:
+                            a._RCW()
+
+                        if mov-o==-2:
+                            a._RCW()
+                        if mov-o==1:
+                            a._RCW()
+                        if mov-o==-1:
+                            a._RCCW()
+                        if mov-o==3:
+                            a._RCCW()
+                        if mov-o==-3:
+                            a._RCW()
+                        if mov==o:
+                            a.x,a.y=p[(a.x,a.y)]
+
                     else:
-                        if old[0]>new[0]:
-                            mov=0#'N' #0
+                        del p[(a.x,a.y)]
 
-                        else:
-                            mov=2#'S' #2
-                    if mov-o==2:
-                        a._RCW()
-
-                    if mov-o==-2:
-                        a._RCW()
-                    if mov-o==1:
-                        a._RCW()
-                    if mov-o==-1:
-                        a._RCCW()
-                    if mov-o==3:
-                        a._RCCW()
-                    if mov-o==-3:
-                        a._RCW()
-                    if mov==o:
-                        a.x,a.y=p[(a.x,a.y)]
-                    
                 else:
-                    del p[(a.x,a.y)]
-
-            else:
-                a.x,a.y=p[(a.x,a.y)]                
+                    a.x,a.y=p[(a.x,a.y)]
+            except:
+                del maze._tracePathList[0][0][a]
+                if maze._tracePathList[0][0]=={}:
+                    del maze._tracePathList[0]
+                    if len(maze._tracePathList)>0:
+                        self.tracePath(maze._tracePathList[0][0],kill=maze._tracePathList[0][1],delay=maze._tracePathList[0][2])
+                if kill:
+                    self._win.after(300, killAgent,a)         
+                return
             
         # If path is provided as String
         if (type(p)==str):
@@ -917,4 +927,4 @@ class maze:
         except:
             pass
         
-        print("Maze Object is Deleted")
+        #print("Maze Object is Deleted")
