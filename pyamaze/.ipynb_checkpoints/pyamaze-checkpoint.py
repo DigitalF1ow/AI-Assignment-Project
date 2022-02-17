@@ -740,6 +740,7 @@ class maze:
         # If path is provided as Dictionary
         if(type(p)==dict):
             if(len(p)==0):
+                print("Entered")
                 del maze._tracePathList[0][0][a]
                 return
             if a.shape=='arrow':
@@ -774,11 +775,12 @@ class maze:
                         a._RCW()
                     if mov==o:
                         a.x,a.y=p[(a.x,a.y)]
+                    
                 else:
                     del p[(a.x,a.y)]
-            
+
             else:
-                a.x,a.y=p[(a.x,a.y)]
+                a.x,a.y=p[(a.x,a.y)]                
             
         # If path is provided as String
         if (type(p)==str):
@@ -837,6 +839,7 @@ class maze:
                 p=p[1:]
         # If path is provided as List
         if (type(p)==list):
+            
             if(len(p)==0):
                 del maze._tracePathList[0][0][a]
                 if maze._tracePathList[0][0]=={}:
@@ -881,12 +884,11 @@ class maze:
                         del p[0]
                 else:
                     del p[0]
-            else:    
+            else:
                 a.x,a.y=p[0]
                 del p[0]
         
         
-
         self._win.after(delay, self._tracePathSingle,a,p,kill,showMarked,delay)    
 
     def tracePath(self,d,kill=False,delay=300,showMarked=False):
@@ -900,12 +902,15 @@ class maze:
             for a,p in d.items():
                 if a.goal!=(a.x,a.y) and len(p)!=0:
                     self._tracePathSingle(a,p,kill,showMarked,delay)
+            #print("Running!")
+            
     def run(self):
         '''
         Finally to run the Tkinter Main Loop
         '''
         self._win.mainloop()
     
+    # Create destructor for recreating the new maze with a new goal and start cell
     def __del__(self):
         try:
             self._win.destroy()
