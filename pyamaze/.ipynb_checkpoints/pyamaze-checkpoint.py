@@ -740,7 +740,7 @@ class maze:
         # If path is provided as Dictionary
         if(type(p)==dict):
             if(len(p)==0):
-                print("Entered")
+                #print("Entered")
                 del maze._tracePathList[0][0][a]
                 return
             if a.shape=='arrow':
