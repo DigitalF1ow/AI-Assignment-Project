@@ -1,0 +1,2 @@
+Maze : 3, Time Taken for A* : 0.0006216999999990591, Time Taken for IDS : 0.008105899999999444
+
