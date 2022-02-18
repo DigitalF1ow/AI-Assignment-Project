@@ -927,4 +927,4 @@ class maze:
         except:
             pass
         
-        #print("Maze Object is Deleted")
+        print("Maze Object is Deleted")
